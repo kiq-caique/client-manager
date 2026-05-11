@@ -1,0 +1,51 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-card__header">
+      <div class="login-card__logo">
+        <mat-icon>people_alt</mat-icon>
+      </div>
+      <h1 class="login-card__title">ClientManager</h1>
+      <p class="login-card__subtitle text-muted">Gerencie seus clientes com eficiência</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="login-card__form">
+      <mat-form-field appearance="fill">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email" type="email" autocomplete="email">
+        <mat-icon matPrefix>email</mat-icon>
+        <mat-error>{{ getError('email') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password"
+               [type]="hidePassword ? 'password' : 'text'"
+               autocomplete="current-password">
+        <mat-icon matPrefix>lock</mat-icon>
+        <button mat-icon-button matSuffix type="button"
+                (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error>{{ getError('password') }}</mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button type="submit" class="login-card__submit"
+              [disabled]="loading">
+        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        <span *ngIf="!loading">Entrar</span>
+      </button>
+    </form>
+
+    <div class="login-card__hint">
+      <span class="text-muted font-mono">demo →</span>
+      <code>admin&#64;clientmanager.dev</code> /
+      <code>admin123</code>
+    </div>
+  </div>
+
+  <div class="login-bg">
+    <div class="login-bg__orb login-bg__orb--1"></div>
+    <div class="login-bg__orb login-bg__orb--2"></div>
+    <div class="login-bg__grid"></div>
+  </div>
+</div>

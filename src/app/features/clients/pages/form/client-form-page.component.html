@@ -1,0 +1,90 @@
+<div class="form-page">
+  <!-- Header -->
+  <div class="form-page__header">
+    <button mat-icon-button (click)="cancel()" matTooltip="Voltar">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div>
+      <h1 class="form-page__title font-mono">
+        {{ isEdit ? 'Editar Cliente' : 'Novo Cliente' }}
+      </h1>
+      <p class="text-muted">
+        {{ isEdit ? 'Atualize as informações do cliente' : 'Preencha os dados para cadastrar um novo cliente' }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="form-page__loading">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <!-- Form -->
+  <div *ngIf="!loading" class="form-card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+      <div class="form-section">
+        <h3 class="form-section__label">Informações pessoais</h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Nome completo</mat-label>
+            <input matInput formControlName="name" autocomplete="name">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error>{{ getError('name') }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row form-row--2">
+          <mat-form-field appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email" autocomplete="email">
+            <mat-icon matPrefix>email</mat-icon>
+            <mat-error>{{ getError('email') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="phone" placeholder="(00) 00000-0000">
+            <mat-icon matPrefix>phone</mat-icon>
+            <mat-error>{{ getError('phone') }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="form-section__label">Documento</h3>
+
+        <div class="form-row form-row--doc">
+          <mat-form-field appearance="fill" class="doc-type-field">
+            <mat-label>Tipo</mat-label>
+            <mat-select formControlName="documentType">
+              <mat-option *ngFor="let t of documentTypes" [value]="t.value">
+                {{ t.label }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ getError('documentType') }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Número do documento</mat-label>
+            <input matInput formControlName="document" [placeholder]="docPlaceholder">
+            <mat-icon matPrefix>badge</mat-icon>
+            <mat-error>{{ getError('document') }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="cancel()">
+          Cancelar
+        </button>
+        <button mat-flat-button type="submit" class="btn-save" [disabled]="saving">
+          <mat-spinner *ngIf="saving" diameter="20"></mat-spinner>
+          <mat-icon *ngIf="!saving">{{ isEdit ? 'save' : 'person_add' }}</mat-icon>
+          <span *ngIf="!saving">{{ isEdit ? 'Salvar alterações' : 'Cadastrar cliente' }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

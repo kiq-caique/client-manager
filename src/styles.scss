@@ -1,0 +1,68 @@
+@use '@angular/material' as mat;
+
+:root {
+  --color-bg: #0f0f13;
+  --color-surface: #1a1a22;
+  --color-surface-2: #22222e;
+  --color-border: #2e2e3e;
+  --color-primary: #6c63ff;
+  --color-primary-light: #8b85ff;
+  --color-accent: #ff6584;
+  --color-success: #43e97b;
+  --color-warning: #f7971e;
+  --color-text: #e8e8f0;
+  --color-text-muted: #8888aa;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 12px;
+  --radius-sm: 6px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 30px rgba(108,99,255,0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ── Material overrides ──────────────────────────────────────────
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--color-surface-2) !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius) !important;
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--color-surface-2);
+  --mdc-snackbar-supporting-text-color: var(--color-text);
+}
+
+// ── Scrollbar ──────────────────────────────────────────────────
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+// ── Utilities ──────────────────────────────────────────────────
+.text-muted { color: var(--color-text-muted); }
+.font-mono  { font-family: var(--font-display); }

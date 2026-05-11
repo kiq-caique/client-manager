@@ -1,0 +1,117 @@
+<div class="list-page">
+  <!-- Header -->
+  <div class="list-page__header">
+    <div>
+      <h1 class="list-page__title font-mono">Clientes</h1>
+      <p class="list-page__subtitle text-muted">
+        {{ totalClients }} cliente{{ totalClients !== 1 ? 's' : '' }} cadastrado{{ totalClients !== 1 ? 's' : '' }}
+      </p>
+    </div>
+    <button mat-flat-button class="btn-primary" routerLink="/clients/new">
+      <mat-icon>add</mat-icon>
+      Novo Cliente
+    </button>
+  </div>
+
+  <!-- Search bar -->
+  <div class="list-page__search">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Buscar por nome, e-mail ou CPF/CNPJ</mat-label>
+      <input matInput [formControl]="searchControl">
+      <button *ngIf="searchControl.value" mat-icon-button matSuffix (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Loading spinner -->
+  <div *ngIf="loading" class="list-page__loading">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <!-- Table -->
+  <div *ngIf="!loading" class="table-wrapper">
+    <table mat-table [dataSource]="dataSource" matSort class="clients-table">
+
+      <!-- Name column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="cell-name">
+            <div class="cell-name__avatar">{{ row.name[0] }}</div>
+            <span>{{ row.name }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Email column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>E-mail</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="cell-mono text-muted">{{ row.email }}</span>
+        </td>
+      </ng-container>
+
+      <!-- Phone column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Telefone</th>
+        <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+      </ng-container>
+
+      <!-- Document column -->
+      <ng-container matColumnDef="document">
+        <th mat-header-cell *matHeaderCellDef>CPF / CNPJ</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="cell-doc">
+            <mat-chip class="chip-doc" [class.chip-doc--cnpj]="row.documentType === 'CNPJ'">
+              {{ row.documentType }}
+            </mat-chip>
+            <span class="cell-mono">{{ row.document | documentMask:row.documentType }}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- UpdatedAt column -->
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Atualizado em</th>
+        <td mat-cell *matCellDef="let row" class="text-muted">
+          {{ row.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+        </td>
+      </ng-container>
+
+      <!-- Actions column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <div class="cell-actions">
+            <button mat-icon-button matTooltip="Editar" (click)="editClient(row.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Excluir" class="btn-delete"
+                    (click)="deleteClient(row)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clients-table__row"></tr>
+
+      <!-- No data row -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+          <mat-icon>search_off</mat-icon>
+          <p>Nenhum cliente encontrado.</p>
+        </td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[10, 25, 50]"
+      [pageSize]="10"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>
