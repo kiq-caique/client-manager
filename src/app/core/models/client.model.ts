@@ -3,7 +3,7 @@ export interface Client {
   name: string;
   email: string;
   phone: string;
-  document: string; // CPF or CNPJ
+  document: string; 
   documentType: 'CPF' | 'CNPJ';
   createdAt: string;
   updatedAt: string;

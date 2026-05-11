@@ -59,4 +59,20 @@
       display: block;
     }
   }
+
+  &__theme-btn {
+    color: var(--color-text-muted) !important;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      color: var(--color-primary) !important;
+      transform: rotate(20deg);
+    }
+
+    mat-icon {
+      font-size: 22px;
+      width: 22px;
+      height: 22px;
+    }
+  }
 }

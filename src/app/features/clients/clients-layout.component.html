@@ -6,6 +6,15 @@
     </div>
 
     <div class="topbar__actions">
+      <button
+        mat-icon-button
+        class="topbar__theme-btn"
+        (click)="toggleTheme()"
+        [matTooltip]="(theme$ | async) === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
+        [attr.aria-label]="(theme$ | async) === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'">
+        <mat-icon>{{ (theme$ | async) === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+
       <ng-container *ngIf="user$ | async as user">
         <span class="topbar__user text-muted">{{ user.name }}</span>
         <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Opções">
