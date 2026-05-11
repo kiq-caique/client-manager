@@ -1,32 +1,33 @@
-# ClientManager 🧑‍💼
+# ClientManager
 
 Aplicação Angular de gestão de clientes, desenvolvida como teste técnico para vaga de Desenvolvedor Front-end Angular Pleno.
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 | Funcionalidade | Implementado |
 |---|---|
-| Listagem de clientes | ✅ |
-| Cadastro de novo cliente | ✅ |
-| Edição de cliente existente | ✅ |
-| Exclusão com confirmação | ✅ |
-| Busca em tempo real | ✅ |
-| Paginação e ordenação | ✅ |
-| Autenticação (login/logout) | ✅ |
-| Proteção de rotas (Guards) | ✅ |
-| Interceptor JWT | ✅ |
-| Lazy Loading de módulos | ✅ |
-| Formulários reativos + validação | ✅ |
-| Validação de CPF e CNPJ | ✅ |
-| Gerenciamento de estado (RxJS) | ✅ |
-| Angular Material | ✅ |
-| Testes unitários | ✅ |
+| Listagem de clientes | Sim |
+| Cadastro de novo cliente | Sim |
+| Edição de cliente existente | Sim |
+| Exclusão com confirmação | Sim |
+| Busca em tempo real | Sim |
+| Paginação e ordenação | Sim |
+| Autenticação (login/logout) | Sim |
+| Proteção de rotas (Guards) | Sim |
+| Interceptor JWT | Sim |
+| Lazy Loading de módulos | Sim |
+| Formulários reativos + validação | Sim |
+| Validação de CPF e CNPJ | Sim |
+| Gerenciamento de estado (RxJS) | Sim |
+| Angular Material | Sim |
+| Tema claro/escuro | Sim |
+| Testes unitários | Sim |
 
 ---
 
-## 🚀 Como rodar localmente
+## Como rodar localmente
 
 ### Pré-requisitos
 
@@ -63,7 +64,7 @@ Acesse: **http://localhost:4200**
 
 ---
 
-## 🧪 Testes
+## Testes
 
 ```bash
 # Executar testes unitários
@@ -77,10 +78,11 @@ npm test -- --code-coverage
 - `AuthService` — login, logout, validação de token
 - `ClientService` — CRUD completo, busca, erros
 - `DocumentMaskPipe` — formatação CPF/CNPJ
+- `ThemeService` — detecção, persistência e toggle de tema
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 ```
 src/app/
@@ -94,7 +96,8 @@ src/app/
 │   │   └── client.model.ts
 │   └── services/
 │       ├── auth.service.ts      # Estado de autenticação (BehaviorSubject)
-│       └── client.service.ts    # CRUD + estado de clientes (BehaviorSubject + localStorage)
+│       ├── client.service.ts    # CRUD + estado de clientes (BehaviorSubject + localStorage)
+│       └── theme.service.ts     # Tema claro/escuro com persistência
 │
 ├── shared/                  # Módulo compartilhado
 │   ├── components/
@@ -124,11 +127,11 @@ src/app/
 - **Validação de CPF/CNPJ**: Validadores customizados com algoritmo de dígito verificador.
 - **Interceptor HTTP**: Injeta o token JWT em todas as requisições e trata 401 automaticamente.
 - **Formulários reativos**: `FormBuilder`, `FormGroup`, `Validators` e validadores customizados.
-- **Angular Material**: Tema escuro personalizado com CSS custom properties.
+- **Angular Material**: Tema claro e escuro via CSS custom properties, persistido em `localStorage` e respeitando `prefers-color-scheme` do sistema na primeira visita.
 
 ---
 
-## 🛠️ Build para produção
+## Build para produção
 
 ```bash
 npm run build
@@ -138,7 +141,7 @@ Os artefatos estarão em `dist/client-manager/`.
 
 ---
 
-## 📦 Tecnologias
+## Tecnologias
 
 - Angular 17
 - Angular Material 17
