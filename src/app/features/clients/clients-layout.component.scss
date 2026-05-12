@@ -23,12 +23,16 @@
   padding: 0 24px;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  isolation: isolate;
 
   &__brand {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
+    flex-shrink: 1;
+    overflow: hidden;
   }
 
   &__icon {
@@ -36,6 +40,7 @@
     font-size: 28px;
     width: 28px;
     height: 28px;
+    flex-shrink: 0;
   }
 
   &__name {
@@ -43,12 +48,16 @@
     font-weight: 700;
     color: var(--color-text);
     letter-spacing: -0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__actions {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
   }
 
   &__user {
@@ -73,6 +82,32 @@
       font-size: 22px;
       width: 22px;
       height: 22px;
+    }
+  }
+}
+
+/*  Mobile    */
+@media (max-width: 768px) {
+  .layout__main {
+    padding: 20px 14px;
+  }
+
+  .topbar {
+    height: 56px;
+    padding: 0 14px;
+
+    &__name {
+      font-size: 0.95rem;
+    }
+
+    &__icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+
+    &__actions {
+      gap: 2px;
     }
   }
 }
