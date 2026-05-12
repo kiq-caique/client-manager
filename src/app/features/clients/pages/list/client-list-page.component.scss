@@ -1,4 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
 .list-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+
   &__header {
     display: flex;
     align-items: flex-start;
@@ -6,6 +20,7 @@
     margin-bottom: 28px;
     gap: 16px;
     flex-wrap: wrap;
+    flex-shrink: 0;    
   }
 
   &__title {
@@ -22,6 +37,7 @@
 
   &__search {
     margin-bottom: 20px;
+    flex-shrink: 0;
 
     .search-field {
       max-width: 480px;
@@ -49,6 +65,20 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.table-wrapper .mat-mdc-paginator {
+  flex-shrink: 0;
 }
 
 .clients-table {
@@ -193,10 +223,31 @@
     }
   }
 
+  // No mobile o scroll é da página inteira (card-mode)
+  :host {
+    display: block;
+    flex: none;
+  }
+
+  .list-page {
+    display: block;
+    flex: none;
+    min-height: 0;
+  }
+
   .table-wrapper {
     background: transparent;
     border: none;
     overflow: visible;
+    display: block;
+    flex: none;
+    min-height: 0;
+  }
+
+  .table-scroll {
+    overflow: visible;
+    min-height: 0;
+    flex: none;
   }
 
   .clients-table {

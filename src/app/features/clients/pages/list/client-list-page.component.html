@@ -32,6 +32,7 @@
 
   <!-- Table -->
   <div *ngIf="!loading" class="table-wrapper">
+    <div class="table-scroll">
     <table mat-table [dataSource]="dataSource" matSort class="clients-table">
 
       <!-- Name column -->
@@ -107,6 +108,7 @@
         </td>
       </tr>
     </table>
+    </div>
 
     <mat-paginator
       [pageSizeOptions]="[10, 25, 50]"
