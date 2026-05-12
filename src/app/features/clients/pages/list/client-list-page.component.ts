@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,9 +17,23 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
   templateUrl: './client-list-page.component.html',
   styleUrls: ['./client-list-page.component.scss']
 })
-export class ClientListPageComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+export class ClientListPageComponent implements OnInit {
+  private _paginator?: MatPaginator;
+  private _sort?: MatSort;
+
+  @ViewChild(MatPaginator)
+  set matPaginator(p: MatPaginator | undefined) {
+    this._paginator = p;
+    if (p) this.dataSource.paginator = p;
+  }
+  get matPaginator(): MatPaginator | undefined { return this._paginator; }
+
+  @ViewChild(MatSort)
+  set matSort(s: MatSort | undefined) {
+    this._sort = s;
+    if (s) this.dataSource.sort = s;
+  }
+  get matSort(): MatSort | undefined { return this._sort; }
 
   displayedColumns = ['name', 'email', 'phone', 'document', 'updatedAt', 'actions'];
   dataSource = new MatTableDataSource<Client>();
@@ -32,7 +46,11 @@ export class ClientListPageComponent implements OnInit, AfterViewInit {
     private router: Router,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.dataSource.sortingDataAccessor = (item, prop) => {
+      return (item as unknown as Record<string, string>)[prop] ?? '';
+    };
+  }
 
   ngOnInit(): void {
     this.loadClients();
@@ -42,15 +60,8 @@ export class ClientListPageComponent implements OnInit, AfterViewInit {
       distinctUntilChanged()
     ).subscribe(term => {
       this.dataSource.filter = (term ?? '').trim().toLowerCase();
+      if (this._paginator) this._paginator.firstPage();
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.dataSource.sortingDataAccessor = (item, prop) => {
-      return (item as unknown as Record<string, string>)[prop] ?? '';
-    };
   }
 
   loadClients(): void {
