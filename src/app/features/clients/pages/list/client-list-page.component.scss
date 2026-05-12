@@ -57,13 +57,13 @@
 
   th.mat-header-cell,
   th.mat-mdc-header-cell {
-    color: var(--color-text-header) !important;   // contraste alto em ambos temas
+    color: var(--color-text-header) !important;
     font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     border-bottom: 1px solid var(--color-border) !important;
-    background: var(--color-surface-2) !important; // destaca a linha do header
+    background: var(--color-surface-2) !important;
     padding: 14px 16px;
   }
 
@@ -86,6 +86,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 
   &__avatar {
     width: 34px;
@@ -101,9 +102,24 @@
     flex-shrink: 0;
     text-transform: uppercase;
   }
+
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .cell-mono { font-family: var(--font-display); font-size: 0.78rem; }
+
+.cell-email {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
 
 .cell-doc {
   display: flex;
@@ -143,4 +159,158 @@
 
   mat-icon { font-size: 48px; width: 48px; height: 48px; opacity: 0.4; }
   p { margin-top: 12px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   RESPONSIVO — tablet (≤ 960px): tabela rola horizontalmente
+   ───────────────────────────────────────────────────────────────── */
+@media (max-width: 960px) and (min-width: 769px) {
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  .clients-table {
+    min-width: 760px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   RESPONSIVO — mobile (≤ 768px): cada linha vira card
+   ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .list-page__header {
+    margin-bottom: 20px;
+  }
+
+  .list-page__title {
+    font-size: 1.4rem;
+  }
+
+  .btn-primary {
+    height: 40px;
+    &__label {
+      display: none;
+    }
+  }
+
+  .table-wrapper {
+    background: transparent;
+    border: none;
+    overflow: visible;
+  }
+
+  .clients-table {
+    thead,
+    .mat-mdc-header-row,
+    tr.mat-mdc-header-row {
+      display: none !important;
+    }
+
+    tbody,
+    .mat-mdc-row,
+    tr.mat-mdc-row {
+      display: block;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      padding: 8px 4px;
+      height: auto !important;
+    }
+
+    td.mat-mdc-cell {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px !important;
+      border-bottom: 1px solid var(--color-border) !important;
+      font-size: 0.88rem;
+      text-align: right;
+
+      &:last-child {
+        border-bottom: none !important;
+      }
+
+      &::before {
+        content: attr(data-label);
+        display: inline-block;
+        flex-shrink: 0;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--color-text-muted);
+        text-align: left;
+      }
+
+      &[data-label='']::before,
+      &[data-label='Ações']::before {
+        display: none;
+      }
+    }
+  }
+
+  .cell-name {
+    justify-content: flex-end;
+    width: 100%;
+
+    &__text {
+      white-space: normal;
+      text-align: right;
+    }
+  }
+
+  .cell-email {
+    max-width: 220px;
+    text-align: right;
+  }
+
+  .cell-doc {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .cell-actions {
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  tr.mat-row[matnodatarow] {
+    display: block;
+    text-align: center;
+  }
+
+  .no-data {
+    display: block !important;
+    padding: 32px !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   RESPONSIVO — telas muito pequenas (≤ 380px)
+   ───────────────────────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .clients-table td.mat-mdc-cell {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 4px;
+
+    &::before {
+      text-align: left;
+    }
+  }
+
+  .cell-name,
+  .cell-doc,
+  .cell-actions,
+  .cell-email {
+    justify-content: flex-start;
+    text-align: left;
+
+    &__text {
+      text-align: left;
+    }
+  }
 }

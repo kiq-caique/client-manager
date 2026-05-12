@@ -9,7 +9,7 @@
     </div>
     <button mat-flat-button class="btn-primary" routerLink="/clients/new">
       <mat-icon>add</mat-icon>
-      Novo Cliente
+      <span class="btn-primary__label">Novo Cliente</span>
     </button>
   </div>
 
@@ -37,10 +37,10 @@
       <!-- Name column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" data-label="Nome">
           <div class="cell-name">
             <div class="cell-name__avatar">{{ row.name[0] }}</div>
-            <span>{{ row.name }}</span>
+            <span class="cell-name__text">{{ row.name }}</span>
           </div>
         </td>
       </ng-container>
@@ -48,21 +48,21 @@
       <!-- Email column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>E-mail</th>
-        <td mat-cell *matCellDef="let row">
-          <span class="cell-mono text-muted">{{ row.email }}</span>
+        <td mat-cell *matCellDef="let row" data-label="E-mail">
+          <span class="cell-mono text-muted cell-email">{{ row.email }}</span>
         </td>
       </ng-container>
 
       <!-- Phone column -->
       <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef>Telefone</th>
-        <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+        <td mat-cell *matCellDef="let row" data-label="Telefone">{{ row.phone }}</td>
       </ng-container>
 
       <!-- Document column -->
       <ng-container matColumnDef="document">
         <th mat-header-cell *matHeaderCellDef>CPF / CNPJ</th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" data-label="CPF / CNPJ">
           <div class="cell-doc">
             <mat-chip class="chip-doc" [class.chip-doc--cnpj]="row.documentType === 'CNPJ'">
               {{ row.documentType }}
@@ -75,7 +75,7 @@
       <!-- UpdatedAt column -->
       <ng-container matColumnDef="updatedAt">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Atualizado em</th>
-        <td mat-cell *matCellDef="let row" class="text-muted">
+        <td mat-cell *matCellDef="let row" data-label="Atualizado em" class="text-muted">
           {{ row.updatedAt | date:'dd/MM/yyyy HH:mm' }}
         </td>
       </ng-container>
@@ -83,7 +83,7 @@
       <!-- Actions column -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" data-label="Ações">
           <div class="cell-actions">
             <button mat-icon-button matTooltip="Editar" (click)="editClient(row.id)">
               <mat-icon>edit</mat-icon>
