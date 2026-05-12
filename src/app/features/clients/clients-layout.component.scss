@@ -1,8 +1,9 @@
 .layout {
-  min-height: 100vh;
+  height: 100vh;            
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
+  overflow: hidden;          
 
   &__main {
     flex: 1;
@@ -10,6 +11,10 @@
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
+    min-height: 0;           
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 }
 
@@ -88,8 +93,16 @@
 
 /*  Mobile    */
 @media (max-width: 768px) {
-  .layout__main {
-    padding: 20px 14px;
+  .layout {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+
+    &__main {
+      padding: 20px 14px;
+      overflow: visible;
+      display: block;
+    }
   }
 
   .topbar {
